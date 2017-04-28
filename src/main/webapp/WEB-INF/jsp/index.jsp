@@ -126,7 +126,7 @@
                         <h3>Пароль</h3>
                     </div>
                     <div class="fi">
-                        <input type="text" class="l css-input" id="passreg"><br>
+                        <input type="password" class="l css-input" id="passreg"><br>
                     </div>
                 </div>
             <div style="display: none; margin: 5px;" id="orow2">

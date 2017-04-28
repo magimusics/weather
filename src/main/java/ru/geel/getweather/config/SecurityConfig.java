@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .and()
                 .httpBasic()
                 .and()
-                .authorizeRequests().antMatchers("/co").hasRole("USER")
+                .authorizeRequests().antMatchers("/stat").hasRole("USER")
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/")
                 .and()
