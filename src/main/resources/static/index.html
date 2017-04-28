@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Узнай погоду</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="css/design.css" />
+
+</head>
+<body>
+<div class="header">
+    <h1>Example page header <small>Subtext for header</small></h1>
+</div>
+<br>
+Узнай погоду в своем городе <br><input type="button" value="Change" onclick="change()">
+
+    <div class="col-lg-6">
+        <div class="input-group">
+            <input type="text" class="form-control" id="city" placeholder="Search for...">
+      <span class="input-group-btn">
+        <input type="button" class="btn btn-default" value="Узнать погоду!" onclick="checkWeather()">
+      </span>
+        </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+</div>
+<br>
+<div id="awaiting" style="display: none;">
+    <svg class="spinner" width="45px" height="45px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+        <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+    </svg>
+</div>
+
+<script>
+    function change() {
+        document.getElementById("awaiting").style.display="none";
+    }
+
+    function checkWeather() {
+        $.ajax({
+            type: 'POST',
+            data: 'city='+document.getElementById("city").value,
+            url: '/ajax',
+            async: true,
+            success: function (mes) {
+                alert(JSON.stringify(mes));
+                document.getElementById("awaiting").style.display="none";
+            },
+            error: function (xhr, status, error) {
+                alert(error);
+                alert(xhr);
+                alert(status);
+            },
+            xhr: function () {
+                var xhr = $.ajaxSettings.xhr();
+                xhr.upload.onprogress = function (evt) {
+                };
+
+                xhr.upload.onload = function () {
+                    document.getElementById("awaiting").style.display="inherit";
+                }
+                return xhr;
+            }
+        })
+    }
+
+
+</script>
+</body>
+</html>
